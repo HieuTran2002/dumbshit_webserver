@@ -13,8 +13,8 @@ namespace MQTT_Helper
         private static MqttFactory factory = new MqttFactory();
         public IMqttClient mqttClient = factory.CreateMqttClient();
 
-        public string broker = "localhost";
-        public int port = 1883;
+        public string broker = "logasfuhaco.drayddns.com";
+        public int port = 5901;
         public string clientId = "CS";
         bool isConnected = false;
         MqttClientOptions options;
@@ -84,8 +84,8 @@ namespace MQTT_Helper
         private bool isConnected = false;
 
         // I'm too lazy to make getter-setter for these guy, but make them public still work, so be that as it may
-        public string address = "localhost";
-        public int port = 1883;
+        public string broker = "logasfuhaco.drayddns.com";
+        public int port = 5901;
         public string clientId = "CS2";
         MqttClientOptions options;
 
@@ -94,7 +94,7 @@ namespace MQTT_Helper
             mqttClient = factory.CreateMqttClient();
 
             options = new MqttClientOptionsBuilder()
-                .WithTcpServer(address, port)
+                .WithTcpServer(broker, port)
                 .WithClientId(clientId)
                 .WithCleanSession()
                 .WithTimeout(TimeSpan.FromSeconds(5))
@@ -148,8 +148,14 @@ namespace MQTT_Helper
                 .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce)
                 .WithRetainFlag()
                 .Build();
+            try
+            {
+                await mqttClient.PublishAsync(message);
+            }
+            catch (Exception ex)
+            {
+            }
 
-            await mqttClient.PublishAsync(message);
         }
     }
 }
