@@ -87,12 +87,13 @@ namespace MQTT_Helper
         public string address = "localhost";
         public int port = 1883;
         public string clientId = "CS2";
+        MqttClientOptions options;
 
         public async void connect()
         {
             mqttClient = factory.CreateMqttClient();
 
-            var options = new MqttClientOptionsBuilder()
+            options = new MqttClientOptionsBuilder()
                 .WithTcpServer(address, port)
                 .WithClientId(clientId)
                 .WithCleanSession()
@@ -128,13 +129,6 @@ namespace MQTT_Helper
 
         private async Task MqttClient_DisconnectedAsync(MqttClientDisconnectedEventArgs arg)
         {
-            var options = new MqttClientOptionsBuilder()
-                .WithTcpServer(address, port)
-                .WithClientId(clientId)
-                .WithCleanSession()
-                .WithTimeout(TimeSpan.FromSeconds(5))
-                .Build();
-
             isConnected = false;
             await Task.Delay(TimeSpan.FromSeconds(5));
             await mqttClient.ConnectAsync(options);
