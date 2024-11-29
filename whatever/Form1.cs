@@ -29,7 +29,6 @@ namespace whatever
 
             sub.StartMqttsSubscriber(sub_topics);
             StartDataProcessing();
-
         }
 
         private void button1_Click(object sender, EventArgs e)

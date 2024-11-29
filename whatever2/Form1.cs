@@ -23,6 +23,7 @@ namespace whatever2
 
         private void DataHandlingProcess()
         {
+            pub.connect();
             int i = 0;
             while (!token.IsCancellationRequested)
             {
@@ -53,7 +54,6 @@ namespace whatever2
         private void Form1_Load(object sender, EventArgs e)
         {
             StartDataProcessing();
-            pub.connect();
         }
     }
 }
